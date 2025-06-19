@@ -21,6 +21,7 @@ class TopMenuOptions extends StatelessWidget {
       onTap: onClick,
       child: Container(
         height: 40,
+        margin: EdgeInsets.symmetric(horizontal: 10),
         padding: EdgeInsets.all(2),
         decoration:
             selected
