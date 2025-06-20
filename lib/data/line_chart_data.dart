@@ -6,8 +6,8 @@ class LineData {
     FlSpot(1, -20),
     FlSpot(2, -40),
     FlSpot(3, -30),
-    FlSpot(4, 10),
-    FlSpot(5, 40),
+    FlSpot(4, -20),
+    FlSpot(5, 0),
   ];
 
   final spots2 = const [

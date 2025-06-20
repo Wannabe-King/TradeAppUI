@@ -33,7 +33,14 @@ class TopMenuOptions extends StatelessWidget {
                 : null,
         child: Row(
           children: [
-            Icon(icon),
+            Icon(
+              icon,
+              color:
+                  selected
+                      ? ColorX.primaryTextColor
+                      : ColorX.secondaryTextColor,
+            ),
+            SizedBox(width: 4),
             Text(
               lable,
               style: TextStyle(

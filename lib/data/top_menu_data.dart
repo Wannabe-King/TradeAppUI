@@ -9,13 +9,13 @@ class TopMenuData {
       selected: true,
     ),
     TopMenuModel(
-      icon: Icons.dashboard_rounded,
+      icon: Icons.swap_horizontal_circle_outlined,
       lable: "Return",
       selected: false,
     ),
-    TopMenuModel(icon: Icons.dashboard_rounded, lable: "Risk", selected: false),
+    TopMenuModel(icon: Icons.shield_rounded, lable: "Risk", selected: false),
     TopMenuModel(
-      icon: Icons.dashboard_rounded,
+      icon: Icons.auto_graph_rounded,
       lable: "Trade",
       selected: false,
     ),

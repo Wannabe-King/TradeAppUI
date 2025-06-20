@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:stockportfoliodashboard/data/top_menu_data.dart';
 import 'package:stockportfoliodashboard/utils/constants/colors.dart';
+import 'package:stockportfoliodashboard/utils/widgets/action_item.dart';
 import 'package:stockportfoliodashboard/utils/widgets/custom_card.dart';
 import 'package:stockportfoliodashboard/utils/widgets/line_chart_card.dart';
 import 'package:stockportfoliodashboard/utils/widgets/metric_item.dart';
@@ -147,31 +148,18 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: Text("LOGO"),
           actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 10.0),
-              child: Icon(Icons.search),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 10.0),
-              child: Icon(Icons.notifications_none_outlined),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.only(right: 10.0),
-              child: Builder(
-                builder: (context) {
-                  return InkWell(
-                    onTap: () => Scaffold.of(context).openEndDrawer(),
-                    child: Icon(Icons.menu),
-                  );
-                },
-              ),
+            ActionItem(icon: Icons.search, padding: 20),
+            ActionItem(icon: Icons.notifications_none_outlined, padding: 20),
+            ActionItem(
+              icon: Icons.menu,
+              padding: 10,
+              onTap: () => Scaffold.of(context).openEndDrawer(),
             ),
           ],
         ),
         body: SingleChildScrollView(
           child: Container(
-            height: MediaQuery.of(context).size.height,
+            // height: MediaQuery.of(context).size.height,
             padding: EdgeInsets.all(20),
             child: Column(
               children: [
@@ -187,7 +175,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(height: 20),
 
                 //Graph Container
-                CustomCard(height: 300, padding: 20, child: LineChartCard()),
+                CustomCard(padding: 20, child: LineChartCard()),
                 SizedBox(height: 20),
 
                 Row(spacing: 20, children: [Text("Period"), Text("Trading")]),
