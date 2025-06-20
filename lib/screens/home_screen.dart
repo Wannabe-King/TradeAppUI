@@ -1,5 +1,5 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:stockportfoliodashboard/data/metric_data.dart';
 import 'package:stockportfoliodashboard/data/top_menu_data.dart';
 import 'package:stockportfoliodashboard/utils/constants/colors.dart';
 import 'package:stockportfoliodashboard/utils/widgets/action_item.dart';
@@ -17,6 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final data = TopMenuData();
+  final metricData = MetricData();
   int selectedIndex = 0;
   TopMenuOptions buildTopMenuItem(int index) {
     final isSelected = selectedIndex == index;
@@ -31,6 +32,19 @@ class _HomeScreenState extends State<HomeScreen> {
               selectedIndex = index;
             }),
           },
+    );
+  }
+
+  Widget buildMetricContainer(int i) {
+    final metrics = metricData.data[i];
+    return Container(
+      margin: EdgeInsets.only(right: 20),
+      width: MediaQuery.of(context).size.width * 0.6,
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: ListView.builder(
+        itemCount: metrics.length,
+        itemBuilder: (context, index) => MetricItem(data: metrics[index]),
+      ),
     );
   }
 
@@ -150,16 +164,11 @@ class _HomeScreenState extends State<HomeScreen> {
           actions: [
             ActionItem(icon: Icons.search, padding: 20),
             ActionItem(icon: Icons.notifications_none_outlined, padding: 20),
-            ActionItem(
-              icon: Icons.menu,
-              padding: 10,
-              onTap: () => Scaffold.of(context).openEndDrawer(),
-            ),
+            ActionItem(icon: Icons.menu, padding: 10),
           ],
         ),
         body: SingleChildScrollView(
           child: Container(
-            // height: MediaQuery.of(context).size.height,
             padding: EdgeInsets.all(20),
             child: Column(
               children: [
@@ -178,7 +187,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 CustomCard(padding: 20, child: LineChartCard()),
                 SizedBox(height: 20),
 
-                Row(spacing: 20, children: [Text("Period"), Text("Trading")]),
+                Row(
+                  spacing: 20,
+                  children: [
+                    Text("Period", style: TextStyle(fontSize: 16)),
+                    Text("Trading", style: TextStyle(fontSize: 16)),
+                  ],
+                ),
                 SizedBox(height: 10),
 
                 // Metric Container
@@ -188,53 +203,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("All-time metrics"),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        padding: EdgeInsets.symmetric(vertical: 10),
-
-                        // child: Column(
-                        //   children: [
-                        //     MetricItem(lable: "Total Trades ", data: '-10.74'),
-                        //     MetricItem(lable: "Total Volume ", data: '-10.74'),
-                        //     MetricItem(
-                        //       lable: "Average Holding Period ",
-                        //       data: '-10.74',
-                        //     ),
-                        //     MetricItem(
-                        //       lable: "Avg Loss/Avg Profit ",
-                        //       data: '-10.74',
-                        //     ),
-                        //     MetricItem(lable: "Profit Factor ", data: '-10.74'),
-                        //   ],
-                        // ),
-                        child: Column(
-                          children: [
-                            MetricItem(
-                              lable: "Time in Market ",
-                              data: '-10.74',
-                            ),
-                            MetricItem(lable: "Sortino ", data: '-10.74'),
-                            MetricItem(lable: "Smart Sharpe ", data: '-10.74'),
-                            MetricItem(lable: "Smart Sortino ", data: '-10.74'),
-                            MetricItem(lable: "Calmar ", data: '-10.74'),
-                          ],
+                      Text("All-time metrics", style: TextStyle(fontSize: 16)),
+                      SizedBox(
+                        height: 280,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder:
+                              (context, index) => buildMetricContainer(index),
+                          itemCount: metricData.data.length,
                         ),
-                        // child: Column(
-                        //   children: [
-                        //     MetricItem(lable: "Treynor ", data: '-10.74'),
-                        //     MetricItem(lable: "VaR ", data: '-10.74'),
-                        //     MetricItem(
-                        //       lable: "cVaR ",
-                        //       data: '-10.74',
-                        //     ),
-                        //     MetricItem(
-                        //       lable: "Average Drawdown ",
-                        //       data: '-10.74',
-                        //     ),
-                        //     MetricItem(lable: "Average DD length ", data: '-10.74'),
-                        //   ],
-                        // ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -282,7 +259,7 @@ class _HomeScreenState extends State<HomeScreen> {
         bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: ColorX.secondaryColor,
           items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Dashboard"),
             BottomNavigationBarItem(
               icon: Icon(Icons.person),
               label: "Strategy",

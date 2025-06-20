@@ -5,7 +5,12 @@ class ActionItem extends StatelessWidget {
   final double padding;
   final Function()? onTap;
 
-  const ActionItem({super.key, required this.icon, required this.padding, this.onTap});
+  const ActionItem({
+    super.key,
+    required this.icon,
+    required this.padding,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +19,11 @@ class ActionItem extends StatelessWidget {
       child: Builder(
         builder: (context) {
           return InkWell(
-            onTap: onTap,
+            onTap:
+                onTap ??
+                () {
+                  Scaffold.of(context).openEndDrawer();
+                },
             child: Icon(icon),
           );
         },

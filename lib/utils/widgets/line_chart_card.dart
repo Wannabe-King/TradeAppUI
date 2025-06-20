@@ -29,9 +29,11 @@ class LineChartCard extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 10.0),
-            child: Text(
-              "Cumulative Returns vs Benchmark",
-              style: TextStyle(fontSize: 14),
+            child: Center(
+              child: Text(
+                "Cumulative Returns vs Benchmark",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
           Padding(
